@@ -37,7 +37,7 @@ public class ProductRepository implements IGenericRepository<Product> {
 
     @Override
     public List<Product> GetAll() {
-        String query = "SELECT * FROM main.product";
+        String query = "SELECT * FROM product";
 
         List<Product> productList = new ArrayList<>();
 
@@ -65,16 +65,15 @@ public class ProductRepository implements IGenericRepository<Product> {
 
     @Override
     public void Save(Product product) {
-        String query = "INSERT INTO product(id, description, price)" +
-                "VALUES(?,?,?)";
+        String query = "INSERT INTO product(description, price)" +
+                "VALUES(?,?)";
 
         try {
             assert connection != null;
             PreparedStatement statement = connection.prepareStatement(query);
 
-            statement.setInt(1, product.getId());
-            statement.setString(2, product.getDescription());
-            statement.setDouble(3, product.getPrice());
+            statement.setString(1, product.getDescription());
+            statement.setDouble(2, product.getPrice());
 
             statement.execute();
         } catch (SQLException e) {
